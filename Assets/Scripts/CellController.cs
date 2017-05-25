@@ -10,21 +10,16 @@ public class CellController : MonoBehaviour {
 	public float pfAt;
 	public bool isNest = false;
 	public float evaporationRate = 1000f;
-
+	private GameController gameController;
 	private SpriteRenderer sr;
 
-	void Start () {
+	void Awake(){
+		gameController = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
 		sr = GetComponent<SpriteRenderer> ();
 		if (Random.Range (0, 100) > 98) {
 			food = 1f;
 		}
 	}
-	
-	// Update is called once per frame
-	// With a zillion of cells is better avoid use this method.
-	// Even avoid coroutines, update cells from GameController.
-	//	void Update () {		
-	//	}
 
 	public void TakeFood(){
 		if (food > 0) {
@@ -33,18 +28,18 @@ public class CellController : MonoBehaviour {
 	}
 
 	public void StepNoFood(){
-		pnAt = Time.frameCount;
+		pnAt = gameController.iteration;
 		ColorCell ();
 	}
 
 	public void StepFood(){
-		pfAt = Time.frameCount;
+		pfAt = gameController.iteration;
 		ColorCell ();
 	}
 
 	public bool hasPN(){
 		if (pnAt > 0) {
-			float diff = Time.frameCount - pnAt;
+			float diff = gameController.iteration - pnAt;
 			return diff < evaporationRate;
 		} else {
 			return false;
@@ -53,7 +48,7 @@ public class CellController : MonoBehaviour {
 
 	public bool hasPF(){
 		if (pfAt > 0) {
-			float diff = Time.frameCount - pfAt;
+			float diff = gameController.iteration - pfAt;
 			return diff < evaporationRate;
 		} else {
 			return false;
@@ -64,17 +59,16 @@ public class CellController : MonoBehaviour {
 		float pn = 1f;
 
 		if (pnAt > 0){
-			float diff = Time.frameCount - pnAt;
+			float diff = gameController.iteration - pnAt;
 			if (diff < evaporationRate) {
 				pn = diff / evaporationRate;
 			}
 		}
 
-
 		float pf = 1f;
 
 		if (pfAt > 0){
-			float diff = Time.frameCount - pfAt;
+			float diff = gameController.iteration - pfAt;
 			if (diff < evaporationRate) {
 				pf = diff / evaporationRate;
 			}

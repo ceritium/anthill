@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
 
+	public float iteration = 0;
 	public int worldSize;
 	public int maxAnts;
 	public GameObject cellPrefab;
@@ -16,33 +17,69 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		// Use this coroutine instead of zillions of coroutines on CellController
+		StartCoroutine("InitMap");
+	}
+
+	IEnumerator InitMap(){
+		int count = 0;
 		cells = new GameObject[worldSize,worldSize];
 		for (int x = 0; x < worldSize; x++) {
 			for (int y = 0; y < worldSize; y++) {
 				cells [x, y] = Instantiate (cellPrefab, new Vector2(x-(worldSize/2),y-(worldSize/2)), Quaternion.identity) as GameObject;
+				if (count > 500) {
+					yield return null;
+					count = 0;
+				}
+				count++;
 			}
-		}
-
-		ants = new GameObject[maxAnts];
-		for (int i = 0; i < maxAnts; i++) {
-			ants[i] = Instantiate (antPrefab, Vector2.zero, Quaternion.identity) as GameObject;
 		}
 
 		// Set nest in 0,0
 		CellController cellCtrl = GetCellCtrl (Vector2.zero);
 		cellCtrl.isNest = true;
 
-		// Use this coroutine instead of zillions of coroutines on CellController
-		InvokeRepeating ("UpdateCells", 0f, 2f);
+		ants = new GameObject[maxAnts];
+		for (int i = 0; i < maxAnts; i++) {
+			ants[i] = Instantiate (antPrefab, Vector2.zero, Quaternion.identity) as GameObject;
+		}
 
+		StartCoroutine("UpdateCellsCoroutine");
+		StartCoroutine("UpdateAntsCoroutine");
 	}
 
-	void UpdateCells(){
-		foreach (GameObject cell in cells) {
-			CellController ctrl = GetCellCtrl (cell);
-			ctrl.ColorCell ();
+	IEnumerator UpdateAntsCoroutine() {
+		int count = 0;
+		while(true){
+			iteration++;
+			foreach (GameObject ant in ants) {
+				ant.GetComponent<AntController> ().Move ();
+				if (count > 100) {
+					yield return null;
+					count = 0;
+				}
+				count++;
+			}
+			yield return null;
 		}
 	}
+
+	IEnumerator UpdateCellsCoroutine() {
+		int count = 0;
+		while(true){
+			foreach (GameObject cell in cells) {
+				CellController ctrl = GetCellCtrl (cell);
+				ctrl.ColorCell ();
+				if (count > 100) {
+					yield return null;
+					count = 0;
+				}
+				count++;
+			}
+			yield return null;
+		}
+	}
+
 
 	public CellController GetCellCtrl(GameObject cell){
 		return cell.GetComponent<CellController> ();

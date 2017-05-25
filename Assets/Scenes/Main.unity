@@ -280,90 +280,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraCurrentZoom: 50
   cameraZoomMin: 20
---- !u!1001 &769652137
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4931705641502166, guid: 7e1b240b9b798403bb4d73f9f56f8e2e, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4931705641502166, guid: 7e1b240b9b798403bb4d73f9f56f8e2e, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4931705641502166, guid: 7e1b240b9b798403bb4d73f9f56f8e2e, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4931705641502166, guid: 7e1b240b9b798403bb4d73f9f56f8e2e, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4931705641502166, guid: 7e1b240b9b798403bb4d73f9f56f8e2e, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4931705641502166, guid: 7e1b240b9b798403bb4d73f9f56f8e2e, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4931705641502166, guid: 7e1b240b9b798403bb4d73f9f56f8e2e, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4931705641502166, guid: 7e1b240b9b798403bb4d73f9f56f8e2e, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 7e1b240b9b798403bb4d73f9f56f8e2e, type: 2}
-  m_IsPrefabParent: 0
---- !u!1001 &947051743
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4458216723247630, guid: 36c99c3ff5edb4a0784f7244edc4dbac, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4458216723247630, guid: 36c99c3ff5edb4a0784f7244edc4dbac, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4458216723247630, guid: 36c99c3ff5edb4a0784f7244edc4dbac, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4458216723247630, guid: 36c99c3ff5edb4a0784f7244edc4dbac, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4458216723247630, guid: 36c99c3ff5edb4a0784f7244edc4dbac, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4458216723247630, guid: 36c99c3ff5edb4a0784f7244edc4dbac, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4458216723247630, guid: 36c99c3ff5edb4a0784f7244edc4dbac, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4458216723247630, guid: 36c99c3ff5edb4a0784f7244edc4dbac, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 36c99c3ff5edb4a0784f7244edc4dbac, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &987833021
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2706e72c4a5354b188f378c644620a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iteration: 0
   worldSize: 100
-  maxAnts: 50
+  maxAnts: 10
   cellPrefab: {fileID: 1435308410659022, guid: 36c99c3ff5edb4a0784f7244edc4dbac, type: 2}
   antPrefab: {fileID: 1600140293531128, guid: 7e1b240b9b798403bb4d73f9f56f8e2e, type: 2}

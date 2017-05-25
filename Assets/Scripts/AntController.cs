@@ -4,37 +4,33 @@ using UnityEngine;
 
 public class AntController : MonoBehaviour {
 
-	// Use this for initialization
 	Vector2[] ways;
 	int oiWay;
 
 	bool withFood;
-
 	private GameController gameController;
 
-	void Start () {
+	void Awake(){
 		ways = new Vector2[] {Vector2.up, new Vector2(1,1), Vector2.right, new Vector2(1,-1), Vector2.down, new Vector2(-1,-1), Vector2.left, new Vector2(-1,1)};
 		oiWay = Random.Range (0, ways.Length);
 
 		gameController = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
-
 		withFood = false;
-	}
-		
-	void Update () {
-		Vector2 po = transform.position;
+	}		
 
+	public void Move(){
+		Vector2 po = transform.position;
 		CellController cellCtrl = gameController.GetCellCtrl (po);
 
 		if (withFood) {
-			cellCtrl.StepFood();
+			cellCtrl.StepFood ();
 			DetectNest ();
 			LookForP ();
 		} else {
-			cellCtrl.StepNoFood();
+			cellCtrl.StepNoFood ();
 			DetectFood ();
 			LookForP ();
-		}
+			}
 	}
 
 	bool DetectNest(){
@@ -46,7 +42,6 @@ public class AntController : MonoBehaviour {
 				CellController cellCtrl = gameController.GetCellCtrl (nPo);
 				if (cellCtrl.isNest) {
 					withFood = false;
-//					Debug.Log ("no food");
 					GoBack();
 					break;
 				}
@@ -119,14 +114,17 @@ public class AntController : MonoBehaviour {
 	void DetectFood(){
 		Vector2 po = transform.position;
 		foreach (Vector2 way in ways) {
-			CellController cellCtrl = gameController.GetCellCtrl (po+way);
-			if (cellCtrl.food > 0) {
-				
+			Vector2 nPo = po + way;
+			if (gameController.ValidPosition (nPo)) {
+				CellController cellCtrl = gameController.GetCellCtrl (nPo);
+				if (cellCtrl.food > 0) {
+					
 
-				cellCtrl.TakeFood ();
-				withFood = true;
-				GoBack();
-				break;
+					cellCtrl.TakeFood ();
+					withFood = true;
+					GoBack ();
+					break;
+				}
 			}
 		}
 			
@@ -134,7 +132,6 @@ public class AntController : MonoBehaviour {
 		
 
 	void GoBack(){
-//		Debug.Log ("goback");
 		oiWay = ModuleWayIndex (ways.Length/2);
 	}
 
