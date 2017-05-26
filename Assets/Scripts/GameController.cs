@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
@@ -10,17 +11,32 @@ public class GameController : MonoBehaviour {
 	public int maxAnts;
 	public GameObject cellPrefab;
 	public GameObject antPrefab;
+	public Text antsText;
+	public Text iterationText;
 
 	public GameObject[,] cells;
 	GameObject[] ants;
+	private bool initiated = false;
 
 	// Use this for initialization
 	void Start () {
 
 		// Use this coroutine instead of zillions of coroutines on CellController
 		StartCoroutine("InitMap");
+
 	}
 
+	void Update(){
+		GuiUpdate ();
+	}
+
+	void GuiUpdate(){
+		if (initiated) {
+			antsText.text = "Ants: " + ants.Length;
+			iterationText.text = "Iteration: " + iteration;
+		}
+	}
+		
 	IEnumerator InitMap(){
 		int count = 0;
 		cells = new GameObject[worldSize,worldSize];
@@ -46,6 +62,7 @@ public class GameController : MonoBehaviour {
 
 		StartCoroutine("UpdateCellsCoroutine");
 		StartCoroutine("UpdateAntsCoroutine");
+		initiated = true;
 	}
 
 	IEnumerator UpdateAntsCoroutine() {
